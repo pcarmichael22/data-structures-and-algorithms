@@ -1,5 +1,7 @@
 'use strict';
 
+// import { arrayExpression } from "@babel/types";
+
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 1
 
@@ -60,12 +62,11 @@ Return the modified array.
 
 const removeOne = (num, arr) => {
     if (num % 3 === 2) { arr.pop() };
-
 };
 
 const removeElements = (arr, callback) => {
     for (let i = 0; i < arr.length; i++) {
-        callback(arr, num);
+        callback(arr[i], arr);
     }
     return (arr);
 };
@@ -78,6 +79,8 @@ Write a function named removeWithForEach that produces the same output as challe
 
 const removeWithForEach = (arr, callback) => {
     // Solution code here...
+    arr.forEach((value) => callback(value, arr));
+    return (arr);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -92,6 +95,10 @@ This anonymous function should accept up to three arguments: the element, the in
 
 const removeWithAnon = (arr) => {
     // Solution code here...
+    arr.forEach(function(num) {
+        if (num % 3 === 2) { arr.pop() };
+    })
+    return (arr);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -113,7 +120,15 @@ This function should use forEach to populate your grocery list based on the stor
 
 const createList = (availableItems) => {
     // Solution code here...
+    const newArray = [];
+    availableItems.forEach((itemStatus) => {
+        if (itemStatus.available === true) {
+            newArray.push(itemStatus.name)
+        };
+    });
+    return (newArray);
 };
+
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 7
@@ -130,9 +145,24 @@ Return the resulting output array.
 ------------------------------------------------------------------------------------------------ */
 
 const fizzbuzz = (arr) => {
-    // Solution code here...
+    const outputArray = [];
+    arr.forEach((value) => {
+        if (value % 3 === 0) {
+            outputArray.push('Fizz');
+        }
+        if (value % 5 === 0) {
+            outputArray.push('Buzz');
+        }
+        if (value % 3 === 0 && value % 5 === 0) {
+            outputArray.push('Fizz Buzz')
+        } else {
+            outputArray.push(value);
+        }
+    })
+    return (outputArray);
 };
 
+// return ([1, 2, 'Fizz', 4, 'Buzz', 'Fizz', 7, 8, 'Fizz', 'Buzz', 11, 'Fizz', 13, 14, 'Fizz Buzz', 16]);
 /* ------------------------------------------------------------------------------------------------
 TESTS
 
@@ -164,21 +194,21 @@ describe('Testing challenge 3', () => {
     });
 });
 
-xdescribe('Testing challenge 4', () => {
+describe('Testing challenge 4', () => {
     test('It should remove three elements from the array', () => {
         expect(removeWithForEach([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], removeOne)).toStrictEqual([1, 2, 3, 4, 5, 6, 7]);
         expect(removeWithForEach([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], removeOne).length).toStrictEqual(7);
     });
 });
 
-xdescribe('Testing challenge 5', () => {
+describe('Testing challenge 5', () => {
     test('It should remove three elements from the array', () => {
         expect(removeWithAnon([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])).toStrictEqual([1, 2, 3, 4, 5, 6, 7]);
         expect(removeWithAnon([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).length).toStrictEqual(7);
     });
 });
 
-xdescribe('Testing challenge 6', () => {
+describe('Testing challenge 6', () => {
     const inventory = [{ name: 'apples', available: true }, { name: 'pears', available: true }, { name: 'oranges', available: false }, { name: 'bananas', available: true }, { name: 'blueberries', available: false }];
 
     test('It should only add the available items to the list', () => {
@@ -187,7 +217,7 @@ xdescribe('Testing challenge 6', () => {
     });
 });
 
-xdescribe('Testing challenge 7', () => {
+describe('Testing challenge 7', () => {
     const inputs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
     test('It should print out messages or numbers', () => {
