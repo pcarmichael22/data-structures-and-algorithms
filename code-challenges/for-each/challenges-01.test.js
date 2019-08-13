@@ -147,18 +147,16 @@ Return the resulting output array.
 const fizzbuzz = (arr) => {
     const outputArray = [];
     arr.forEach((value) => {
-        if (value % 3 === 0) {
-            outputArray.push('Fizz');
-        }
-        if (value % 5 === 0) {
-            outputArray.push('Buzz');
-        }
         if (value % 3 === 0 && value % 5 === 0) {
             outputArray.push('Fizz Buzz')
+        } else if (value % 3 === 0) {
+            outputArray.push('Fizz');
+        } else if (value % 5 === 0) {
+            outputArray.push('Buzz');
         } else {
             outputArray.push(value);
         }
-    })
+    });
     return (outputArray);
 };
 
