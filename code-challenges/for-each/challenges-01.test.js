@@ -10,10 +10,42 @@ Write a function named greeting that takes in a string and returns the string in
 Then, write a function named speaker that takes in a string and a callback function. The speaker function should return the string in all uppercase letters only by invoking the callback.
 ------------------------------------------------------------------------------------------------ */
 
+var myobject = {
+    name: 'old',
+    age: 100
+}
+messwithmyobject(myobject)
+
+var n = 25
+messwithprimitivevalue(n)
+
+// the parameter y is a copy of the value of the input parameter if it is a primitive value
+function messwithprimitivevalue(y) {
+    // do nothing
+    y = 30
+}
+
+// the paramter someobjectd is a pointer to the same memory as the input parameter if the input parameter is an object
+function messwithmyobject(someobject) {
+    var myspecialobject1 = someobject
+    var myspecialobject2 = someobject
+    var myspecialobject3 = someobject
+    var myspecialobject4 = someobject
+    var myspecialobject5 = someobject
+    myspecialobject5.name = 'new'
+        // someobject.name = 'new'
+        // myobject.name =- 'new'
+}
+
 const greeting = (word) => {
     // Solution code here...
     return word.toUpperCase();
 };
+
+// const goodbye = (word) => {
+//     // Solution code here...
+//     return 'goodbye';
+// };
 
 const speaker = (message, callback) => {
     // Solution code here...
